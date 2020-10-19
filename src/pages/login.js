@@ -11,32 +11,9 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
-const styles = {
-    form: {
-        textAlign: "center",
-    },
-    image: {
-        margin: "20px auto 20px auto",
-    },
-    pageTitle: {
-        margin: "10px auto 10px auto",
-    },
-    textField: {
-        margin: "10px auto 10px auto",
-    },
-    button: {
-        marginTop: 20,
-        position: "relative"
-    },
-    customError: {
-        color: "red",
-        fontSize: "0.8rem",
-        marginTop: 10
-    },
-    progress: {
-        position: "absolute"
-    }
-};
+const styles = (theme) => ({
+    ...theme.spreadThis
+});
 
 export class login extends Component {
     constructor() {
@@ -60,6 +37,7 @@ export class login extends Component {
         }
         axios.post("/login", userData)
             .then(res => {
+                localStorage.setItem("FBIdToken", `Bearer ${res.data.token}`);
                 this.setState({
                     loading: false
                 });
@@ -86,7 +64,7 @@ export class login extends Component {
             <Grid container className={classes.form}>
                 <Grid item sm/>
                 <Grid item sm>
-                    <img src={AppIcon} alt="monkey image" className={classes.image}/>
+                    <img src={AppIcon} alt="monkey" className={classes.image}/>
                     <Typography variant="h2" className={classes.pageTitle}>
                         Login
                     </Typography>
@@ -97,7 +75,7 @@ export class login extends Component {
                             type="email"
                             label="Email"
                             className={classes.textField}
-                            helperText={errors.email ? true : false}
+                            helperText={!!errors.email}
                             error={errors.email}
                             value={this.state.email}
                             onChange={this.handleChange}
@@ -109,7 +87,7 @@ export class login extends Component {
                             type="password"
                             label="Password"
                             className={classes.textField}
-                            helperText={errors.password ? true : false}
+                            helperText={!!errors.password}
                             error={errors.password}
                             value={this.state.password}
                             onChange={this.handleChange}

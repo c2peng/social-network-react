@@ -10,6 +10,7 @@ import {
   CLEAR_ERRORS,
   SET_SCREAM,
   STOP_LOADING_UI,
+  SUBMIT_COMMENT,
 } from "../types";
 import axios from "axios";
 
@@ -69,6 +70,23 @@ export const unlikeScream = (screamId) => async (dispatch) => {
     });
   } catch (e) {
     console.log(e);
+  }
+};
+
+//Submit a comment
+export const submitComment = (screamId, commentData) => async (dispatch) => {
+  try {
+    const res = await axios.post(`/scream/${screamId}/comment`, commentData);
+    dispatch({
+      type: SUBMIT_COMMENT,
+      payload: res.data,
+    });
+    dispatch(clearErrors());
+  } catch (e) {
+    dispatch({
+      type: SET_ERRORS,
+      payload: e.response.data,
+    });
   }
 };
 

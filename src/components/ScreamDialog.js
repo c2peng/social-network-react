@@ -7,15 +7,16 @@ import MyButton from "../util/MyButton";
 
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
-import DialogTitle from "@material-ui/core/DialogContentText";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
+import ChatIcon from "@material-ui/icons/Chat";
 
 import CloseIcon from "@material-ui/icons/Close";
 import UnfoldMore from "@material-ui/icons/UnfoldMore";
 import { connect } from "react-redux";
 import { getScream } from "../redux/actions/dataActions";
+import LikeButton from "./LikeButton";
 
 const styles = (theme) => ({
   ...theme.spreadThis,
@@ -79,7 +80,7 @@ class ScreamDialog extends Component {
     const dialogMarkup = loading ? (
       <CircularProgress size={200} />
     ) : (
-      <Grid container spacing={16}>
+      <Grid container spacing={10}>
         <Grid item sm={5}>
           <img src={userImage} alt="profile" className={classes.profileImage} />
         </Grid>
@@ -98,6 +99,12 @@ class ScreamDialog extends Component {
           </Typography>
           <hr className={classes.invisibleSeparator} />
           <Typography variant="body1">{body}</Typography>
+          <LikeButton screamId={screamId} />
+          <span>{likeCount} likes</span>
+          <MyButton tip="comment">
+            <ChatIcon color="primary" />
+          </MyButton>
+          <span>{commentCount} comments</span>
         </Grid>
       </Grid>
     );

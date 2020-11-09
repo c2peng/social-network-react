@@ -113,3 +113,13 @@ export const getScream = (screamId) => async (dispatch) => {
     console.log(e);
   }
 };
+
+export const getUserData = (userHandle) => async (dispatch) => {
+  dispatch({ type: LOADING_DATA });
+  try {
+    const res = await axios.get(`/user/${userHandle}`);
+    dispatch({ type: SET_SCREAMS, payload: res.data.screams });
+  } catch (e) {
+    dispatch({ type: SET_SCREAMS, payload: null });
+  }
+};

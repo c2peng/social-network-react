@@ -16,6 +16,7 @@ import axios from "axios";
 //components
 import Navbar from "./components/layout/Navbar";
 import AuthRoute from "./util/AuthRoute";
+import user from "./pages/user";
 
 //pages
 import home from "./pages/home";
@@ -49,6 +50,7 @@ class App extends Component {
                 <Route exact path="/" component={home} />
                 <AuthRoute exact path="/login" component={login} />
                 <AuthRoute exact path="/signup" component={signup} />
+                <Route exact path="/users/:handle" component={user} />
               </Switch>
             </div>
           </Router>
